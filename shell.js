@@ -20,7 +20,7 @@ let wasm_loaded = false;
 Module.onRuntimeInitialized = function () {
     vdz_world = Module._World_new();
     if (vdz_world) {
-        Module._World_set_log_level(vdz_world, 0);
+        Module._World_set_log_level(vdz_world, 5);
         vdz_view = Module._World_View_new(vdz_world);
         if (vdz_view) {
             Module._WV_set_width(vdz_view, canvas.width);
@@ -125,6 +125,15 @@ function vdz_bezTo(c1x, c1y, c2x, c2y, ex, ey) {
 function vdz_closePath() {
     ctx.closePath();
     LOG('ClosePath');
+}
+
+function vdz_fill_rect(x, y, w, h) {
+    ctx.fillRect(x, y, w, h);
+    LOG('fillRect ' + x + ', ' + y + ' ' + w + ', ' + h);
+}
+
+function vdz_stroke_rect(x, y, w, h) {
+    ctx.strokeRect(x, y, w, h);
 }
 
 function vdz_set_fill_color(r, g, b, a) {
