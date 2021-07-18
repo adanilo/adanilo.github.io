@@ -78,7 +78,22 @@ function handleFileSelect(evt) {
         reader.readAsArrayBuffer(f);
     }
 }
+
+function setCanvasSize() {
+    canvas.setAttribute('width', window.innerWidth * 0.99);
+    canvas.setAttribute('height', window.innerHeight * 0.95);
+    if (wasm_loaded && vdz_view) {
+        Module._WV_set_width(vdz_view, canvas.width);
+        Module._WV_set_height(vdz_view, canvas.height);
+        Module._WV_paint(vdz_view);
+    }
+}
+
+// Could do this at onload too.
+setCanvasSize();
+
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
+window.addEventListener('resize', setCanvasSize);
 
 const enable_logging = false;
 
